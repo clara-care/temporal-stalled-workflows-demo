@@ -4,7 +4,6 @@ require_relative "../workflows/demo_timers_workflow"
 namespace "temporal" do
   desc "Run the DemoTimersWorkflow"
   task :run_timers_demo, [:temporal_address, :temporal_namespace, :count] do |t, args|
-    # Create a client
     client = Temporalio::Client.connect(args.temporal_address, args.temporal_namespace)
 
     values = args[:count].to_i.times.map { Random.random_number(1..1_000) }
@@ -23,11 +22,30 @@ namespace "temporal" do
     workflow_ids = values.map { workflow_id_from_value _1 }
 
     loop do
-      results = all_workflows_done?(client, workflow_ids)
-      puts results
-      break if results.map { _1[:result] }.all?
-      sleep(5)
+      current_time = Time.now.utc
+      results = workflow_ids.map do |workflow_id|
+        workflow_desc = client.workflow_handle(workflow_id).describe
+        {
+          workflow_id:,
+          elapsed: current_time - start_time,
+          is_done: !workflow_desc.close_time.nil?
+        }
+      end
+
+      results.filter { !_1[:is_done] }.each do |result|
+        puts <<~REPORT.tr("\n", " ")
+          workflow_id=#{result[:workflow_id]},
+          elapsed=#{result[:elapsed].round(2)}s
+        REPORT
+      end
+      finished_workflow_ids = results.filter_map { _1[:workflow_id] if _1[:is_done] }
+      puts "Finished: #{finished_workflow_ids.join(",")}" unless finished_workflow_ids.empty?
+
+      break if finished_workflow_ids.count == workflow_ids.count
+      sleep(2)
     end
+
+    puts "DONE"
 
     workflow_ids.each do |id|
       close_time = client.workflow_handle(id).describe.close_time
@@ -37,14 +55,6 @@ namespace "temporal" do
   end
 
   def workflow_id_from_value(value)
-    "demo-#{value}"
-  end
-
-  def all_workflows_done?(client, workflow_ids)
-    workflow_ids.map { {workflow_id: _1, result: workflow_done?(client, _1)} }
-  end
-
-  def workflow_done?(client, workflow_id)
-    client.workflow_handle(workflow_id).describe.close_time != nil
+    "demo-timers-#{value}"
   end
 end

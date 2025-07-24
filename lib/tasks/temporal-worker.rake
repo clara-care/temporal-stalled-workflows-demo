@@ -2,7 +2,6 @@ require "temporalio/client"
 require "temporalio/worker"
 require_relative "../activities/say_hello_activity"
 require_relative "../workflows/say_hello_workflow"
-require_relative "../workflows/demo_state_machine_workflow"
 require_relative "../workflows/demo_timers_workflow"
 
 namespace "temporal" do
@@ -21,7 +20,7 @@ namespace "temporal" do
     worker = Temporalio::Worker.new(
       client:,
       task_queue: "default",
-      workflows: [SayHelloWorkflow, DemoStateMachineWorkflow, DemoTimersWorkflow],
+      workflows: [SayHelloWorkflow, DemoTimersWorkflow],
       activities: [SayHelloActivity],
       logger:
     )

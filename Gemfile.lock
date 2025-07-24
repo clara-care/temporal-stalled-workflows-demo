@@ -147,5 +147,8 @@ DEPENDENCIES
   standard (~> 1.50)
   temporalio (~> 0.4.0)
 
+RUBY VERSION
+   ruby 3.3.8p144
+
 BUNDLED WITH
    2.5.22
