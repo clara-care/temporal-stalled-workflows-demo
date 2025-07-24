@@ -1,11 +1,15 @@
-- Copied `docker-compose.yml` from [`temporalio/docker-compose/docker-compose-postgres.yml`](https://github.com/temporalio/docker-compose/blob/main/docker-compose-postgres.yml)
-- Added a worker service and worker `Dockerfile`
-- Copied `SayHelloWorkflow` and `SayHelloActivity`
-- Copied `worker.rb` into `lib/tasks/temporal-worker.rake`
-
 # Demo SDK Ruby - Stalled Workflows
 
 This repository demonstrates a case where Temporal workflows built on the [Ruby SDK](https://github.com/temporalio/sdk-ruby) become "stuck" waiting on a future. In the demo, a `Temporalio::Workflow::Future` instance wraps a simple call to `sleep` (other methods like `wait_condition` may or may not be affected).
+
+The vast majority of this code is copied from the [Ruby SDK](https://github.com/temporalio/sdk-ruby) and [`temporalio/docker-compose/docker-compose-postgres.yml`](https://github.com/temporalio/docker-compose/blob/main/docker-compose-postgres.yml) with slight alterations.
+
+- Copied `docker-compose.yml` from [`temporalio/docker-compose/docker-compose-postgres.yml`](https://github.com/temporalio/docker-compose/blob/main/docker-compose-postgres.yml)
+- Added a worker service and worker `Dockerfile`
+- Copied `SayHelloWorkflow` and `SayHelloActivity`
+- Copied `worker.rb` (via [Running a worker]([`temporalio/docker-compose/docker-compose-postgres.yml`](https://github.com/temporalio/docker-compose/blob/main/docker-compose-postgres.yml)) into `lib/tasks/temporal-worker.rake`
+
+In addition to this boilerplate - a custom demo workflow was added in `lib/workflows/demo_timers_workflow.rb`.
 
 ## Setup
 
