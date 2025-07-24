@@ -27,11 +27,11 @@ This repository demonstrates a case where Temporal workflows built on the [Ruby 
 
 ### Normal workflow
 
-<img width="1378" height="809" alt="Screenshot 2025-07-24 at 4 06 52 PM" src="https://github.com/user-attachments/assets/8b0b4629-7556-4608-a2bb-9a27e531c24d" />
+![Screenshot 2025-07-24 at 4 06 52 PM](https://github.com/user-attachments/assets/8b0b4629-7556-4608-a2bb-9a27e531c24d)
 
 ### Stalled workflow
 
-<img width="1378" height="767" alt="Screenshot 2025-07-24 at 4 07 05 PM" src="https://github.com/user-attachments/assets/3db0f27c-d53c-4907-aa0a-5d7986faa50f" />
+![Screenshot 2025-07-24 at 4 07 05 PM](https://github.com/user-attachments/assets/3db0f27c-d53c-4907-aa0a-5d7986faa50f)
 
 ## Demo logs
 
