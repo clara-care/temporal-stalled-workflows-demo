@@ -1,4 +1,4 @@
 - Copied `docker-compose.yml` from [`temporalio/docker-compose/docker-compose-postgres.yml`](https://github.com/temporalio/docker-compose/blob/main/docker-compose-postgres.yml)
 - Added a worker service and worker `Dockerfile`
 - Copied `SayHelloWorkflow` and `SayHelloActivity`
-- Copied `worker.rb` into `lib/tasks/temporal-worker.rake` with arguments
+- Copied `worker.rb` into `lib/tasks/temporal-worker.rake`

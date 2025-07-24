@@ -25,6 +25,7 @@ services:
       - DYNAMIC_CONFIG_FILE_PATH=config/dynamicconfig/development-sql.yaml
       - TEMPORAL_ADDRESS=temporal:7233
       - TEMPORAL_CLI_ADDRESS=temporal:7233
+      - LOG_LEVEL=info
     image: temporalio/auto-setup:${TEMPORAL_VERSION:-1.28}
     networks:
       - temporal-network
@@ -65,13 +66,14 @@ services:
     build:
       context: .
     command: "temporal:run_worker['temporal:7233','default']"
-    scale: 1
+    scale: 2
     depends_on:
       temporal:
         condition: service_healthy
     environment:
       - "TEMPORAL_ADDRESS=temporal:7233"
       - "TEMPORAL_NAMESPACE=default"
+      - "LOG_LEVEL=debug"
     networks:
       - temporal-network
     volumes:
