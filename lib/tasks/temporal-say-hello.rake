@@ -8,12 +8,19 @@ namespace "temporal" do
     client = Temporalio::Client.connect(args.temporal_address, args.temporal_namespace)
 
     # Run workflow
-    result = client.execute_workflow(
+    workflow_id = "say-hello-to-#{args.name.downcase.sub(" ", "-")}"
+    start_time = Time.now.utc
+    client.start_workflow(
       SayHelloWorkflow,
       args.name,
-      id: "say-hello-to-#{args.name.downcase.sub(" ", "-")}",
+      id: workflow_id,
       task_queue: "default"
     )
-    puts "Result: #{result}"
+
+    while client.workflow_handle(workflow_id).describe.close_time.nil?
+      sleep 1
+    end
+    end_time = client.workflow_handle(workflow_id).describe.close_time
+    puts "Workflow #{workflow_id} closed (duration #{end_time - start_time}s)"
   end
 end
