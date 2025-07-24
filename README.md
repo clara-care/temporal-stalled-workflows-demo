@@ -25,9 +25,7 @@ This repository demonstrates a case where Temporal workflows built on the [Ruby 
 
 <details>
 
-### Demo run - workflow poller
-
-You can add an image or a code block, too.
+<summary>Demo run - workflow poller</summary>
 
 ```
 Started demo-timers-250
@@ -75,7 +73,7 @@ Finished: demo-timers-250,demo-timers-847,demo-timers-420
 
 <details>
 
-### Demo run - worker logs
+<summary>Demo run - worker logs</summary>
 
 ```
 I, [2025-07-24T16:51:52.753364 #1]  INFO -- : Timer created {:attempt=>1, :namespace=>"default", :run_id=>"01983d59-2f28-7dbd-a0f0-b12994094255", :task_queue=>"default", :workflow_id=>"demo-timers-847", :workflow_type=>"DemoTimersWorkflow"}
